@@ -56,7 +56,14 @@ where `<SN>` is the bunny's serial number
 
 ### Play choreography
 
-`HTTP POST http://host:port/vl/api/stream.jsp?sn=<SN>&chor=<CHOR>&url=<URL>`
+`HTTP POST http://host:port/vl/api/chor.jsp?sn=<SN>&chor=<CHOR>&url=<URL>`
 
 where `<SN>` is the bunny's serial number, `<CHOR>` is the name of a built-in choreography, and `<URL>` points to the web address where the choreography file is located. Either `<CHOR>` or `<URL>` needs to be provided. Currently, valid values for `<CHOR>` are: `rainbow`, `slider`, `disco`, `larson`, and `blink`.
 
+## Ambient settings
+
+`HTTP POST http://host:port/vl/api/ambient.jsp?sn=<SN>&chor=<CHOR>&leftear=<LE>&rightear=<RE>&nose=<NOSE>&weather=<WEATHER>&market=<MARKET>&traffic=<TRAFFIC>&messages=<MESSAGES>&airquality=<AIRQUALITY>`
+
+where `<SN>` is the bunny's serial number, `<LE>` is the position of the left ear, `<RE>` is the position of the right ear, `<NOSE>` has a value of 0-2, `<WEATHER>` is one of (`none`,`cloudy`,`smog`,`rain`,`snow`,`storm`), `<MARKET>` is one of (`none`,`highdown`,`mediumdown`,`littledown`,`stable`,`littleup`,`mediumup`,`highup`), `<TRAFFIC>` is one of (`none`,`100`,`75`,`50`,`25`,`12`,`8`,`4`), `<MESSAGES>` is one of (`none`,`0`,`1`,`2`,`3`), and `<AIRQUALITY>` is one of (`none`,`good`,`medium`,`low`). 
+
+All parameters except `<SN>` are optional. A value of `none` deletes a previous setting.
