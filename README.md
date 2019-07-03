@@ -23,7 +23,7 @@ The bunny sends events to the ifttt.com website where they can be caught using w
 - `<SN>_earsmove`: The ears of the bunny are adjusted. The call to the ifttt also includes the position of the ears.
 - `<SN>_record_click`: A message is recorded using a simple click. An URL that points to the recorded message is also sent to ifttt.
 - `<SN>_record_dblclick`: A message is recorded using a double click. Again, an URL to the recorded message is sent to ifttt.
-- `<SN>_<RFID>`: A Zstamps with a <RFID> key is read.
+- `<SN>_<RFID>`: A Zstamps with a `<RFID>` key is read.
 
 Every event is accompanied with a second event called `nabaztag`. This can be used as a catch-all event to, for instance, enable logging to a google spreadsheet. It can also be used to find out the RFID IDs of Zstamps.
 
