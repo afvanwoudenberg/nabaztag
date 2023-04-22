@@ -1,19 +1,59 @@
 # Nabaztag
+
 This is a server written in Prolog for the [nabaztag:tag](https://en.wikipedia.org/wiki/Nabaztag) bunny. It passes events like a button press or a voice recording to the https://ifttt.com website where it can be hooked up to other services through recipes. The server also exposes an API that can be called from the https://ifttt.com website or other services (or even a simple curl command) to make the bunny execute certain commands.
 
-## Configuration
+## Getting Started
+
+### Prerequisites
+
+To run this server, you'll need to first install [SWI-Prolog](https://www.swi-prolog.org/).
+
+To install SWI-Prolog on Linux, open up a terminal and type:
+
+```{bash}
+sudo apt-get install swi-prolog
+```
+
+On macOS, if you have Homebrew installed you can instead run:
+
+```{bash}
+brew install swi-prolog
+```
+
+To install SWI-Prolog on Windows, download the installer from the [official website](https://www.swi-prolog.org/Download.html) and follow the instructions.
+
+### Cloning the Repository
+
+1. Open your terminal or command prompt and navigate to the directory where you want to clone the repository.
+
+2. Clone the repository:
+```bash
+git clone https://github.com/afvanwoudenberg/nabaztag.git
+```
+
+3. Navigate into the project folder:
+```bash
+cd nabaztag
+```
+
+### Configuration
+
 Before you can start this server you'll need to add some keys to the `config.pl` file. Specifically, you'll need to set the bunny's serial number (MAC address) and the webhook key of your ifttt.com account. You'll need to include the MAC address on multiple lines. If you own more than one nabaztag, you may repeat the last four lines for your second (and third etc) bunny. 
 
-## Running the server
-To run this server you'll need to have SWI-Prolog installed. Consult the `nabaztag.pl` file and on the prompt type:
+### Running the Server
 
-`server_start.`
+To run this server, you can type the following:
 
-This will start the server. To stop the server you may type:
+```bash
+swipl nabaztagd.pl --fork=false --port=8080 --user=www-data --workers=4
+```
 
-`server_stop.`
+This will start the server. To stop the server you can enter Ctrl-C.
+
+Included is an example systemd file called `nabaztag.service` that can be used to start the server at boot. One option would be to run this Nabaztag server behind an Apache reverse proxy.
 
 ## Events
+
 The bunny sends events to the ifttt.com website where they can be caught using webhooks. Make sure you have included the right key in the `config.pl` file. The events that the server produces have the following names:
 
 - `<SN>_wakeup`: The bunny with serial number SN completes loading its bootcode.
@@ -28,7 +68,8 @@ The bunny sends events to the ifttt.com website where they can be caught using w
 Every event is accompanied with a second event called `nabaztag`. This can be used as a catch-all event to, for instance, enable logging to a google spreadsheet. It can also be used to find out the RFID IDs of Zstamps.
 
 ## API
-The server defines the following API calls.
+
+The server defines the following API:
 
 ### Text To Speech
 
@@ -67,3 +108,12 @@ where `<SN>` is the bunny's serial number, `<CHOR>` is the name of a built-in ch
 where `<SN>` is the bunny's serial number, `<LE>` is the position of the left ear, `<RE>` is the position of the right ear, `<NOSE>` has a value of 0-2, `<WEATHER>` is one of (`none`,`cloudy`,`smog`,`rain`,`snow`,`storm`), `<MARKET>` is one of (`none`,`highdown`,`mediumdown`,`littledown`,`stable`,`littleup`,`mediumup`,`highup`), `<TRAFFIC>` is one of (`none`,`100`,`75`,`50`,`25`,`12`,`8`,`4`), `<MESSAGES>` is one of (`none`,`0`,`1`,`2`,`3`), and `<AIRQUALITY>` is one of (`none`,`good`,`medium`,`low`). 
 
 All parameters except `<SN>` are optional. A value of `none` deletes a previous setting.
+
+## Author
+
+Aswin van Woudenberg ([afvanwoudenberg](https://github.com/afvanwoudenberg))
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
